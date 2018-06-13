@@ -1,0 +1,38 @@
+server:
+  port: 9001
+  servlet:
+    context-path: /tgh/
+  
+spring:
+  datasource:
+    platform: postgres
+    driverclassname: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/devdb
+    username: postgres
+    password: p@tchw0rd
+  
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    properties:
+      hibernate:
+        show_sql: true 
+        format_sql: true
+        ddl-auto: update
+        temp:
+          use_jdbc_metadata_defaults: false 
+
+logging:
+  level:
+    root: INFO
+    org:
+      springframework: DEBUG
+      
+      
+kafka:
+  brokerHost: 127.0.0.1:9092
+  topic: hotel_wastage_details
+  totalConcurrentConsumers: 1
+  consumerId: hotel_wastage_details-consumer-local
+  consumerGroup: hotel_wastage_details-group-local
+  maxRecordsToPoll: 10

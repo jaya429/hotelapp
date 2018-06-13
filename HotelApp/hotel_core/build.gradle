@@ -1,0 +1,59 @@
+buildscript {
+  repositories {
+      jcenter()
+  }
+   dependencies {
+    classpath ("com.palantir:jacoco-coverage:0.4.0")
+    classpath ("org.springframework.boot:spring-boot-gradle-plugin:2.0.2.RELEASE")
+  }
+}
+
+
+apply from: '../cm-gradle-includes/header.gradle'
+apply from: '../cm-gradle-includes/loggingdependencies.gradle'
+apply plugin: 'groovy'
+
+group = 'com.thg'
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter:2.0.2.RELEASE')
+  compile('org.springframework.boot:spring-boot-starter-data-jpa:2.0.2.RELEASE')
+  compile ("com.google.code.findbugs:findbugs:3.0.1")
+	 compile("org.projectlombok:lombok:1.16.18") {force=true}
+    compile(
+            "com.fasterxml.jackson.core:jackson-core:2.6.3",
+            "com.fasterxml.jackson.core:jackson-annotations:2.6.3",
+            "com.fasterxml.jackson.core:jackson-databind:2.6.3",
+    )
+	testCompile('org.springframework.boot:spring-boot-starter-test:2.0.2.RELEASE')
+}
+
+jacocoTestReport {
+  afterEvaluate {
+      classDirectories = files(classDirectories.files.collect {
+          fileTree(dir: it, exclude: [
+                  'com/thg/hotel/domain/**',
+                  'com/thg/hotel/enums/**',
+                  
+          ])
+      })
+  }
+}
+
+
+apply from: '../cm-gradle-includes/footer.gradle'
+
+jar { from sourceSets.main.allSource }
+
+task buildPom {
+  doLast {
+      pom {
+          project {
+              groupId "com.thg"
+              artifactId rootProject.name
+              version "${currentVersion}"
+          }
+      }.writeTo("$buildDir/libs/${rootProject.name}-${currentVersion}.pom")
+  }
+}

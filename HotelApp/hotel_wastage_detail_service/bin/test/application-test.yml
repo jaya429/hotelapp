@@ -1,0 +1,18 @@
+spring:
+  datasource:
+     driverclassname: org.h2.Driver
+     url: jdbc:h2:mem:testdb;mode=db2
+     username: test
+     password:
+     #schema: ../schema.sql
+     #data: ../user.sql
+
+logging:
+  level:
+    root: INFO
+    apache:
+      commons:
+        dbcp2: DEBUG
+    org:
+      springframework: ERROR
+   

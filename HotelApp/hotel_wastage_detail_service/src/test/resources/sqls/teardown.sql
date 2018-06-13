@@ -1,0 +1,1 @@
+drop table tgh_htl_wstg_dtl;

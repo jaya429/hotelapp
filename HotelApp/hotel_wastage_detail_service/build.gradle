@@ -1,0 +1,42 @@
+buildscript {
+  repositories {
+    jcenter()
+    maven { url "http://repo.spring.io/release" }
+  }
+  dependencies {
+    classpath ("com.palantir:jacoco-coverage:0.4.0")
+    classpath ("org.springframework.boot:spring-boot-gradle-plugin:2.0.2.RELEASE")
+  }
+}
+
+apply from: '../cm-gradle-includes/header.gradle'
+apply from: '../cm-gradle-includes/loggingdependencies.gradle'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.thg'
+
+repositories {
+  mavenCentral()
+  maven { url "https://repo.spring.io/milestone" }
+}
+
+
+dependencies {
+  compile ('org.apache.kafka:kafka-clients:1.0.0'){
+    force = true
+  }
+    compile('org.springframework.boot:spring-boot-starter-data-jpa:2.0.2.RELEASE')
+    compile (group: 'com.thg', name: 'hotel_core', version: '1.0.1-SNAPSHOT')
+    compile('org.springframework.boot:spring-boot-starter-web:2.0.2.RELEASE')
+    compile ('org.springframework.kafka:spring-kafka:1.3.2.RELEASE')
+    
+    compile('org.postgresql:postgresql:42.2.0')
+  
+    
+    testCompile('org.springframework.boot:spring-boot-starter-test:2.0.2.RELEASE',
+      "com.h2database:h2:1.4.196")
+}
+
+
+
+apply from: '../cm-gradle-includes/footer.gradle'

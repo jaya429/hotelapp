@@ -1,0 +1,37 @@
+buildscript {
+  repositories {
+    jcenter()
+    maven { url "http://repo.spring.io/release" }
+  }
+  dependencies {
+    classpath ("com.palantir:jacoco-coverage:0.4.0")
+    classpath ("org.springframework.boot:spring-boot-gradle-plugin:2.0.2.RELEASE")
+  }
+}
+
+apply from: '../cm-gradle-includes/header.gradle'
+apply from: '../cm-gradle-includes/loggingdependencies.gradle'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: "groovy"
+
+group = 'com.thg'
+
+repositories {
+  mavenCentral()
+  maven { url "https://repo.spring.io/milestone" }
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-data-jpa:2.0.2.RELEASE')
+    compile (group: 'com.thg', name: 'hotel_core', version: '1.0.1-SNAPSHOT')
+	compile('org.springframework.boot:spring-boot-starter-web:2.0.2.RELEASE')
+    compile('org.postgresql:postgresql:42.2.0')
+  
+	
+	testCompile('org.springframework.boot:spring-boot-starter-test:2.0.2.RELEASE')
+}
+
+
+
+apply from: '../cm-gradle-includes/footer.gradle'
